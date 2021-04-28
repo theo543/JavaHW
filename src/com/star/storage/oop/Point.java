@@ -37,4 +37,16 @@ public class Point {
     public double distance() {
         return distance(origin);
     }
+
+    public static void testPoint() {
+        Point first = new Point(6, 5);
+        Point second = new Point(3, 1);
+        System.out.println("distance(0,0)= " + first.distance());
+        System.out.println("distance(second)= " + first.distance(second));
+        Point point = new Point();
+        System.out.println("distance()= " + point.distance());
+        // distance(0,0)= 7.810249675906654
+        // distance(second)= 5.0
+        // distance()= 0.0
+    }
 }
