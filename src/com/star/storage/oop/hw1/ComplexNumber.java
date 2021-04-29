@@ -1,4 +1,4 @@
-package com.star.storage.oop;
+package com.star.storage.oop.hw1;
 
 public class ComplexNumber {
     private double real, imaginary;
