@@ -11,7 +11,7 @@ public enum Extra{
 	CARROT(new BigDecimal("0.76"))
 	;
 
-	private BigDecimal price;
+	private final BigDecimal price;
 
 	public BigDecimal getPrice(){
 		return price;

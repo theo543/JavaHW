@@ -10,7 +10,7 @@ public enum BreadType{
 	MULTIGRAIN(new BigDecimal("2.13"))
 	;
 
-	private BigDecimal price;
+	private final BigDecimal price;
 
 	public BigDecimal getPrice(){
 		return price;

@@ -8,7 +8,7 @@ public enum MeatType{
 	CHICKEN(new BigDecimal(("3.5")))
 	;
 
-	private BigDecimal price;
+	private final BigDecimal price;
 
 	public BigDecimal getPrice(){
 		return price;

@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.util.Vector;
 
 public class Burger{
-	private Vector<Extra> extra;
-	private BreadType bread;
-	private MeatType meat;
-	private boolean doubleMeat;
+	private final Vector<Extra> extra = new Vector<>();
+	private final BreadType bread;
+	private final MeatType meat;
+	private final boolean doubleMeat;
 	public final static int maxAdditions = 4;
 
 	public BreadType getBread(){
@@ -30,7 +30,6 @@ public class Burger{
 		this.bread = bread;
 		this.meat = meat;
 		this.doubleMeat = doubleMeat;
-		this.extra = new Vector<>();
 	}
 
 	//returns space left for extras, won't add if full or if e is null
