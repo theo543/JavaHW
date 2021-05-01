@@ -2,6 +2,7 @@ package com.star.storage.oop.hw2.burgers;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 
 public class Burger{
@@ -39,5 +40,18 @@ public class Burger{
 		for(Ingredient i : ingredients)
 			sum = sum.add(i.getPrice());
 		return sum;
+	}
+
+	public String toString(){
+		StringBuilder s = new StringBuilder();
+		for(Ingredient i : ingredients){
+			s.append(i.toString().toUpperCase().charAt(0));
+			s.append(i.toString().toLowerCase().substring(1));
+			s.append(" - price = ");
+			s.append(i.getPrice());
+		}
+		s.append("No Extra\n".repeat(maxAdditions - ingredients.size() + basicIngredients));
+		s.append("Total:").append(getPrice().toString()).append("\n");
+		return s.toString();
 	}
 }
