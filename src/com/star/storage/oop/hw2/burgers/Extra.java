@@ -2,7 +2,7 @@ package com.star.storage.oop.hw2.burgers;
 
 import java.math.BigDecimal;
 
-public enum Extra{
+public enum Extra implements Ingredient{
 	LETTUCE(new BigDecimal("0.6")),
 	FRIES(new BigDecimal("1.3")),
 	CUCUMBERS(new BigDecimal("0.7")),

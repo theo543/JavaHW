@@ -4,15 +4,30 @@ import java.math.BigDecimal;
 import java.util.Vector;
 
 public class DeluxeBurger extends Burger{
-	private static final BigDecimal priceOfChipsAndSoda = new BigDecimal("3");
-	public final static int maxAdditions = 0;
-	private final Vector<Extra> extra = new Vector<>(0);
+	//only deluxe burgers get Chips and Soda!
+	private class Chips implements Ingredient{
+		public BigDecimal getPrice(){
+			return new BigDecimal("1.8");
+		}
+		public String toString(){
+			return "Chips";
+		}
+	}
+	private class Soda implements Ingredient{
+		public BigDecimal getPrice(){
+			return new BigDecimal("1.2");
+		}
+		public String toString(){
+			return "Soda";
+		}
+	}
+	public final static int maxAdditions = 2;
+	private final Vector<Ingredient> ingredients = new Vector<>(2);
 
 	public DeluxeBurger(BreadType bread, MeatType meat){
 		super(bread, meat, true);
+		ingredients.add(new Chips());
+		ingredients.add(new Soda());
 	}
 
-	public BigDecimal getPrice(){
-		return super.getPrice().add(priceOfChipsAndSoda);
-	}
 }

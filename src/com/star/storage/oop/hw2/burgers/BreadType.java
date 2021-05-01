@@ -2,7 +2,7 @@ package com.star.storage.oop.hw2.burgers;
 
 import java.math.BigDecimal;
 
-public enum BreadType{
+public enum BreadType implements Ingredient{
 	SIMPLE(new BigDecimal("1")),
 	POTATO(new BigDecimal("2")),
 	BROWN_RYE(new BigDecimal("2.3")),
