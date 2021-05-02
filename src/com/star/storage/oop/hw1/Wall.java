@@ -1,5 +1,7 @@
 package com.star.storage.oop.hw1;
 
+import static com.star.storage.oop.Main.Assert;
+
 public class Wall{
 	private double width, height;
 
@@ -35,14 +37,10 @@ public class Wall{
 
 	public static void testWall(){
 		Wall wall = new Wall(5, 4);
-		System.out.println("area= " + wall.getArea());
+		Assert(wall.getArea() == 20.0);
 		wall.setHeight(-1.5);
-		System.out.println("width= " + wall.getWidth());
-		System.out.println("height= " + wall.getHeight());
-		System.out.println("area= " + wall.getArea());
-		// area= 20.0
-		// width= 5.0
-		// height= 0.0
-		// area= 0.0
+		Assert(wall.getWidth() == 5.0);
+		Assert(wall.getHeight() == 0.0);
+		Assert(wall.getArea() == 0.0);
 	}
 }

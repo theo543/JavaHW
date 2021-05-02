@@ -1,5 +1,7 @@
 package com.star.storage.oop.hw1;
 
+import static com.star.storage.oop.Main.Assert;
+
 public class Point{
 	private static Point origin = new Point();
 	private int x, y;
@@ -41,10 +43,12 @@ public class Point{
 	public static void testPoint(){
 		Point first = new Point(6, 5);
 		Point second = new Point(3, 1);
-		System.out.println("distance(0,0)= " + first.distance());
-		System.out.println("distance(second)= " + first.distance(second));
+		Assert(first.distance() >= 7.810249);
+		Assert(first.distance() <= 7.81025);
+		Assert(first.distance(second) >= 5.0);
+		Assert(first.distance(second) <= 5.01);
 		Point point = new Point();
-		System.out.println("distance()= " + point.distance());
+		Assert(point.distance() == 0.0);
 		// distance(0,0)= 7.810249675906654
 		// distance(second)= 5.0
 		// distance()= 0.0

@@ -1,5 +1,7 @@
 package com.star.storage.oop.hw1;
 
+import static com.star.storage.oop.Main.Assert;
+
 public class Person{
 	private String firstName, lastName;
 	private int age;
@@ -41,21 +43,17 @@ public class Person{
 
 	public static void testPerson(){
 		Person person = new Person();
-		person.setFirstName("");   // firstName is set to empty string
-		person.setLastName("");    // lastName is set to empty string
+		person.setFirstName("");
+		person.setLastName("");
 		person.setAge(10);
-		System.out.println("fullName= " + person.getFullName());
-		System.out.println("teen= " + person.isTeen());
-		person.setFirstName("John");    // firstName is set to John
+		Assert(person.getFullName().equals(""));
+		Assert(!person.isTeen());
+		person.setFirstName("John");
 		person.setAge(18);
-		System.out.println("fullName= " + person.getFullName());
-		System.out.println("teen= " + person.isTeen());
-		person.setLastName("Smith");    // lastName is set to Smith
-		System.out.println("fullName= " + person.getFullName());
-		// fullName=
-		// teen= true
-		// fullName= John
-		// teen= true
-		// fullName= John Smith
+		Assert(person.getFullName().equals("John"));
+		Assert(person.isTeen());
+		person.setLastName("Smith");
+		Assert(person.getFullName().equals("John Smith"));
+		Assert(person.getFullName().equals(person.getFirstName() + " " + person.getLastName()));
 	}
 }
