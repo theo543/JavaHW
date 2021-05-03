@@ -4,6 +4,8 @@ import com.star.storage.oop.hw1.ComplexNumber;
 import com.star.storage.oop.hw1.Person;
 import com.star.storage.oop.hw1.Point;
 import com.star.storage.oop.hw1.Wall;
+import com.star.storage.oop.hw3.shapes.Cuboid;
+import com.star.storage.oop.hw3.shapes.Rectangle;
 
 
 public class Main{
@@ -24,5 +26,7 @@ public class Main{
 		Wall.testWall();
 		Point.testPoint();
 		ComplexNumber.testComplexNumber();
+		Rectangle.testRectangle();
+		Cuboid.testCuboid();
 	}
 }
