@@ -2,4 +2,3 @@ Todo: Add command line interface
 Todo: hw2 - room
 Todo: hw3 - cars
 Todo: hw4 - movies
-Todo: hw4 - hackerrank
