@@ -1,6 +1,6 @@
 package com.star.storage.oop.hw1;
 
-import static com.star.storage.oop.Main.Assert;
+import static com.star.storage.oop.TestManager.Assert;
 
 public class Wall{
 	private double width, height;

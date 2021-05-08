@@ -1,32 +1,34 @@
 package com.star.storage.oop;
 
-import com.star.storage.oop.hw1.ComplexNumber;
-import com.star.storage.oop.hw1.Person;
-import com.star.storage.oop.hw1.Point;
-import com.star.storage.oop.hw1.Wall;
-import com.star.storage.oop.hw3.shapes.Cuboid;
-import com.star.storage.oop.hw3.shapes.Rectangle;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+import java.util.function.Consumer;
 
 
 public class Main{
 
-	private final static boolean throwException = false; //enable to find where assert fails
-	public static void Assert(boolean b){
-		if(!b){
-			if(throwException){
-				throw(new AssertionError("Assert failed"));
-			}else{
-				System.out.println("Assert failed");
-			}
-		}
+	private static final HashMap<String, Consumer<List<String>>> commands = new HashMap<>();
+
+	public static void registerCommand(String name, Consumer<List<String>> command){
+		commands.put(name, command);
 	}
 
 	public static void main(String[] args){
-		Person.testPerson();
-		Wall.testWall();
-		Point.testPoint();
-		ComplexNumber.testComplexNumber();
-		Rectangle.testRectangle();
-		Cuboid.testCuboid();
+		TestManager.init();
+		List<String> input;
+		Scanner s = new Scanner(System.in);
+		System.out.println("Enter a command:");
+		while(true){
+			input = Arrays.asList(s.nextLine().split(" "));
+			if(input.get(0).equals("exit")){
+				break;
+			}else if(!commands.containsKey(input.get(0))){
+				System.out.println("Command not found");
+			}else{
+				commands.get(input.get(0)).accept(input.subList(1, input.size()));
+			}
+		}
 	}
 }

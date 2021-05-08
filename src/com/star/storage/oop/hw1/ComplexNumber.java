@@ -1,6 +1,6 @@
 package com.star.storage.oop.hw1;
 
-import static com.star.storage.oop.Main.Assert;
+import static com.star.storage.oop.TestManager.Assert;
 
 public class ComplexNumber{
 	private double real, imaginary;
@@ -43,12 +43,6 @@ public class ComplexNumber{
 		subtract(cn.real, cn.imaginary);
 	}
 
-	private final String expectedTestOutput = "one.real= 2.0\n" +
-			"one.imaginary= 2.0\n" +
-			"one.real= -0.5\n" +
-			"one.imaginary= 3.5\n" +
-			"number.real= 3.0\n" +
-			"number.imaginary= -5.0";
 	public static void testComplexNumber(){
 		ComplexNumber one = new ComplexNumber(1.0, 1.0);
 		ComplexNumber number = new ComplexNumber(2.5, -1.5);
