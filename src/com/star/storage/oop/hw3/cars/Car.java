@@ -48,7 +48,7 @@ public class Car extends Vehicle{
 	}
 
 	public double getMaxSpeed(){
-		return 100;//mps
+		return 44.4444444444444;//mps, ~= 160 km/s
 	}
 
 	//initial angle and position
