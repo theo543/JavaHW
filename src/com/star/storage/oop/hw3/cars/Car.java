@@ -4,6 +4,14 @@ import static java.lang.Math.*;
 
 public class Car extends Vehicle{
 
+	//initial angle and position
+	//angle of 0 degrees is east
+	public Car(double angle, double x, double y){
+		this.angle = angle;
+		this.x = x;
+		this.y = y;
+	}
+
 	public double getAcceleration(){
 		return 3.5;//mps^-2
 	}
@@ -25,7 +33,7 @@ public class Car extends Vehicle{
 		targetSpeed = min(getMaxSpeed(), targetSpeed);
 		targetSpeed = max(targetSpeed, 0);
 		double dv = (targetSpeed > speed) ? getAcceleration() : getDeceleration();
-		move(abs(targetSpeed - speed)/dv, (targetSpeed + speed)/2, angle);
+		move(abs(targetSpeed - speed) / dv, (targetSpeed + speed) / 2, angle);
 		speed = targetSpeed;
 		return speed;
 	}
@@ -49,13 +57,5 @@ public class Car extends Vehicle{
 
 	public double getMaxSpeed(){
 		return 44.4444444444444;//mps, ~= 160 km/s
-	}
-
-	//initial angle and position
-	//angle of 0 degrees is east
-	public Car(double angle, double x, double y){
-		this.angle = angle;
-		this.x = x;
-		this.y = y;
 	}
 }

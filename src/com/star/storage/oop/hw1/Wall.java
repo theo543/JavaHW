@@ -5,6 +5,25 @@ import static com.star.storage.oop.TestManager.Assert;
 public class Wall{
 	private double width, height;
 
+	public Wall(){
+		width = 0;
+		height = 0;
+	}
+
+	public Wall(double width, double height){
+		this.width = width;
+		this.height = height;
+	}
+
+	public static void testWall(){
+		Wall wall = new Wall(5, 4);
+		Assert(wall.getArea() == 20.0);
+		wall.setHeight(-1.5);
+		Assert(wall.getWidth() == 5.0);
+		Assert(wall.getHeight() == 0.0);
+		Assert(wall.getArea() == 0.0);
+	}
+
 	public double getWidth(){
 		return width;
 	}
@@ -23,24 +42,5 @@ public class Wall{
 
 	public double getArea(){
 		return width * height;
-	}
-
-	public Wall(){
-		width = 0;
-		height = 0;
-	}
-
-	public Wall(double width, double height){
-		this.width = width;
-		this.height = height;
-	}
-
-	public static void testWall(){
-		Wall wall = new Wall(5, 4);
-		Assert(wall.getArea() == 20.0);
-		wall.setHeight(-1.5);
-		Assert(wall.getWidth() == 5.0);
-		Assert(wall.getHeight() == 0.0);
-		Assert(wall.getArea() == 0.0);
 	}
 }

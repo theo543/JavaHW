@@ -12,6 +12,13 @@ public class Rectangle{
 		this.length = max(0, length);
 	}
 
+	public static void testRectangle(){
+		Rectangle rectangle = new Rectangle(5, 10);
+		Assert(rectangle.getWidth() == 5);
+		Assert(rectangle.getLength() == 10);
+		Assert(rectangle.getArea() == 50);
+	}
+
 	public double getWidth(){
 		return width;
 	}
@@ -22,12 +29,5 @@ public class Rectangle{
 
 	public double getArea(){
 		return width * length;
-	}
-
-	public static void testRectangle(){
-		Rectangle rectangle = new Rectangle(5, 10);
-		Assert(rectangle.getWidth() == 5);
-		Assert(rectangle.getLength() == 10);
-		Assert(rectangle.getArea() == 50);
 	}
 }

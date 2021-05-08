@@ -17,7 +17,9 @@ public class TestManager{
 	private static String currentTest;
 
 	public static void init(){
-		registerTest("all", () -> tests.forEach((a, b) -> {if(!a.equals("all"))run(Collections.singletonList(a));}));
+		registerTest("all", () -> tests.forEach((a, b) -> {
+			if(!a.equals("all")) run(Collections.singletonList(a));
+		}));
 		registerTest("person", Person::testPerson);
 		registerTest("complex-number", ComplexNumber::testComplexNumber);
 		registerTest("point", Point::testPoint);

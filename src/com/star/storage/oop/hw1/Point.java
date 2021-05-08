@@ -3,7 +3,7 @@ package com.star.storage.oop.hw1;
 import static com.star.storage.oop.TestManager.Assert;
 
 public class Point{
-	private static Point origin = new Point();
+	private static final Point origin = new Point();
 	private int x, y;
 
 	public Point(){
@@ -14,6 +14,20 @@ public class Point{
 	public Point(int x, int y){
 		this.x = x;
 		this.y = y;
+	}
+
+	public static void testPoint(){
+		Point first = new Point(6, 5);
+		Point second = new Point(3, 1);
+		Assert(first.distance() >= 7.810249);
+		Assert(first.distance() <= 7.81025);
+		Assert(first.distance(second) >= 5.0);
+		Assert(first.distance(second) <= 5.01);
+		Point point = new Point();
+		Assert(point.distance() == 0.0);
+		// distance(0,0)= 7.810249675906654
+		// distance(second)= 5.0
+		// distance()= 0.0
 	}
 
 	public int getX(){
@@ -38,19 +52,5 @@ public class Point{
 
 	public double distance(){
 		return distance(origin);
-	}
-
-	public static void testPoint(){
-		Point first = new Point(6, 5);
-		Point second = new Point(3, 1);
-		Assert(first.distance() >= 7.810249);
-		Assert(first.distance() <= 7.81025);
-		Assert(first.distance(second) >= 5.0);
-		Assert(first.distance(second) <= 5.01);
-		Point point = new Point();
-		Assert(point.distance() == 0.0);
-		// distance(0,0)= 7.810249675906654
-		// distance(second)= 5.0
-		// distance()= 0.0
 	}
 }
