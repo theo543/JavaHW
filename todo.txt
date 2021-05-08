@@ -1,4 +1,5 @@
-Todo: Add command line interface
+Todo: Add command line interface, add "run test" commands
 Todo: hw2 - room
-Todo: hw3 - cars
+Todo: hw2 - burgers - add cli
+Todo: hw3 - cars - add cli, maybe save path to an image
 Todo: hw4 - movies
