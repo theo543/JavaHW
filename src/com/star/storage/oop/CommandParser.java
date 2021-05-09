@@ -10,12 +10,15 @@ public class CommandParser{
 	private final ArrayList<Command> list = new ArrayList<>();
 	private final Runnable defaultCommand = () ->
 			System.out.println("Type help for help");
-
 	public CommandParser(){
-		add(new Command("help", (a) -> listCommands()));
+		add(new Command("help", (a) -> outputCommands()));
 	}
 
-	public void listCommands(){
+	public List<Command> getCommands(){
+		return Collections.unmodifiableList(list);
+	}
+
+	public void outputCommands(){
 		System.out.println("Available commands:");
 		for(var c : list){
 			System.out.println(c.name());
@@ -43,8 +46,9 @@ public class CommandParser{
 			return;
 		}
 		var match = Pattern.compile("^([-a-z0-9_]+)(?![^ ])").matcher(input);
-		if(!match.matches()){
-			System.out.println("Command not found");
+		if(!match.find()){
+			System.out.println("Invalid command name");
+			return;
 		}
 		String name = match.group();
 		List<Command> commands = find(name);
@@ -56,7 +60,7 @@ public class CommandParser{
 				System.out.println(c.name());
 			}
 		}else{
-			commands.get(0).command().accept(name.substring(name.length()));
+			commands.get(0).command().accept(match.replaceAll("").stripLeading().stripTrailing());
 		}
 	}
 
