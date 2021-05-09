@@ -1,6 +1,6 @@
 package com.star.storage.oop.hw1;
 
-import static com.star.storage.oop.TestManager.Assert;
+import static com.star.storage.oop.AssertProvider.Assert;
 
 public class Point{
 	private static final Point origin = new Point();

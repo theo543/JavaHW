@@ -1,6 +1,6 @@
 package com.star.storage.oop.hw3.shapes;
 
-import static com.star.storage.oop.TestManager.Assert;
+import static com.star.storage.oop.AssertProvider.Assert;
 import static java.lang.Math.max;
 
 public class Cuboid extends Rectangle{
