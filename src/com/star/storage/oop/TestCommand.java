@@ -35,17 +35,19 @@ public class TestCommand{
 
 	private static class TestWrapper implements Consumer<String>{
 		Runnable r;
-		public TestWrapper(Runnable r){
+		String name;
+		public TestWrapper(Runnable r, String name){
 			this.r = r;
+			this.name = name;
 		}
 		public void accept(String args){
 			r.run();
-			System.out.println("test done");
+			System.out.println("\"" + name + "\" test done");
 		}
 	}
 
 	public void addTest(String name, Runnable r){
-		parser.add(new CommandParser.Command(name, new TestWrapper(r)));
+		parser.add(new CommandParser.Command(name, new TestWrapper(r, name)));
 	}
 
 	public Consumer<String> getCommand(){
