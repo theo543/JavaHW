@@ -10,12 +10,15 @@ public class CommandParser{
 	private final ArrayList<Command> list = new ArrayList<>();
 	private final Runnable defaultCommand = () ->
 			System.out.println("Type help for help");
-
 	public CommandParser(){
-		add(new Command("help", (a) -> listCommands()));
+		add(new Command("help", (a) -> outputCommands()));
 	}
 
-	public void listCommands(){
+	public List<Command> getCommands(){
+		return Collections.unmodifiableList(list);
+	}
+
+	public void outputCommands(){
 		System.out.println("Available commands:");
 		for(var c : list){
 			System.out.println(c.name());
