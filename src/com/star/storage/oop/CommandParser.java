@@ -46,8 +46,9 @@ public class CommandParser{
 			return;
 		}
 		var match = Pattern.compile("^([-a-z0-9_]+)(?![^ ])").matcher(input);
-		if(!match.matches()){
-			System.out.println("Command not found");
+		if(!match.find()){
+			System.out.println("Invalid command name");
+			return;
 		}
 		String name = match.group();
 		List<Command> commands = find(name);
@@ -59,7 +60,7 @@ public class CommandParser{
 				System.out.println(c.name());
 			}
 		}else{
-			commands.get(0).command().accept(name.substring(name.length()));
+			commands.get(0).command().accept(match.replaceAll("").stripLeading().stripTrailing());
 		}
 	}
 
