@@ -10,8 +10,9 @@ public class CommandParser{
 	private final ArrayList<Command> list = new ArrayList<>();
 	private final Runnable defaultCommand = () ->
 			System.out.println("Type help for help");
+
 	public CommandParser(){
-		add(new Command("help", (a) -> outputCommands()));
+		add("help", (a) -> outputCommands());
 	}
 
 	public List<Command> getCommands(){
@@ -38,6 +39,10 @@ public class CommandParser{
 
 	public void add(Command c){
 		list.add(c);
+	}
+
+	public void add(String name, Consumer<String> function){
+		list.add(new Command(name, function));
 	}
 
 	public void parse(String input){

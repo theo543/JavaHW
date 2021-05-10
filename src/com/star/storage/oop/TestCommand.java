@@ -13,18 +13,18 @@ public class TestCommand{
 	private final CommandParser parser = new CommandParser();
 
 	public TestCommand(){
-		parser.add(new CommandParser.Command("toggle-assertion-error", (a) -> {
+		parser.add("toggle-assertion-error", (a) -> {
 			if(a.matches("(?:true|false) ?"))
 				AssertProvider.setThrowsError(a.startsWith("t"));
 			else AssertProvider.setThrowsError(!AssertProvider.getThrowsError());
 			System.out.println("Assert errors are now " + (AssertProvider.getThrowsError() ? "on" : "off"));
-		}));
-		parser.add(new CommandParser.Command("all", (a) -> {
+		});
+		parser.add("all", (a) -> {
 			for(var t : parser.getCommands()){
 				if(t.command() instanceof TestWrapper)//avoid infinite loop
 					t.command().accept("");
 			}
-		}));
+		});
 		addTest("person", Person::testPerson);
 		addTest("complex-number", ComplexNumber::testComplexNumber);
 		addTest("point", Point::testPoint);
@@ -47,7 +47,7 @@ public class TestCommand{
 	}
 
 	public void addTest(String name, Runnable r){
-		parser.add(new CommandParser.Command(name, new TestWrapper(r, name)));
+		parser.add(name, new TestWrapper(r, name));
 	}
 
 	public Consumer<String> getCommand(){

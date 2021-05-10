@@ -9,8 +9,8 @@ public class Main{
 	public static void main(String[] args){
 		TestCommand tests = new TestCommand();
 		CommandParser cli = new CommandParser();
-		cli.add(new CommandParser.Command("exit", (a) -> exitLoop = true));
-		cli.add(new CommandParser.Command("test", tests.getCommand()));
+		cli.add("exit", (a) -> exitLoop = true);
+		cli.add("test", tests.getCommand());
 		String input;
 		Scanner s = new Scanner(System.in);
 		System.out.println("Enter a command:");
