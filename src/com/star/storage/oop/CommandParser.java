@@ -33,7 +33,6 @@ public class CommandParser{
 				list.add(a);
 			}
 		}
-		Collections.sort(list);
 		return list;
 	}
 
@@ -69,9 +68,6 @@ public class CommandParser{
 		}
 	}
 
-	public record Command(String name, Consumer<String> command) implements Comparable<Command>{
-		public int compareTo(Command c){
-			return name.compareTo(c.name());
-		}
+	public record Command(String name, Consumer<String> command){
 	}
 }
