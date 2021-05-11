@@ -1,11 +1,11 @@
 package com.star.storage.oop.hw2.burgers;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class Burger{
-	protected final Vector<Ingredient> ingredients = new Vector<>();
+	protected final ArrayList<Ingredient> ingredients = new ArrayList<>();
 	private final int basicIngredients;
 
 	public Burger(BreadType bread, MeatType meat, boolean doubleMeat){
