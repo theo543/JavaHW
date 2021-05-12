@@ -1,4 +1,3 @@
 Todo: hw2 - room
 Todo: hw2 - burgers - add command
 Todo: hw3 - cars - add command, maybe save path to an image
-Todo: hw4 - movies
