@@ -10,7 +10,7 @@ import com.star.storage.oop.hw3.shapes.Rectangle;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TestCommand {
+public final class TestCommand {
     private static final Autocomplete<Runnable> tests = new Autocomplete<>();
 
     static {
@@ -42,4 +42,6 @@ public class TestCommand {
         }
         t.forEach(Runnable::run);
     }
+
+    private TestCommand(){}
 }
