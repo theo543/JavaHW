@@ -32,13 +32,13 @@ public class CommandParser {
             System.out.println("Command not found");
             return;
         }
-        var c = list.get(match.group());
+        var c = list.get(match.group(0));
         if (c.size() == 0) {
             System.out.println("Command not found");
         } else if (c.size() > 1) {
             System.out.println("Command ambiguous:");
             for (var v : c)
                 System.out.println(v.name());
-        } else c.get(0).data().accept(input.split(" "));
+        } else c.get(0).data().accept(input.substring(match.end(0)).strip().split(" +"));
     }
 }
