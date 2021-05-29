@@ -62,19 +62,10 @@ public class StringExercises {
     public static boolean check_whether_a_string_is_palindrome_or_not(String s) {
         if (s.isEmpty())
             return true;
-        int l, r;
-        if (s.length() % 2 == 1) {
-            l = s.length() / 2;
-            r = l;
-        } else {
-            l = s.length() / 2;
-            r = l + 1;
-        }
+        int l = (s.length() - 1)/2, r = s.length()/2;
         while (l >= 0) {
-            if (s.charAt(l) != s.charAt(r))
+            if (s.charAt(l--) != s.charAt(r++))
                 return false;
-            l--;
-            r++;
         }
         return true;
     }
