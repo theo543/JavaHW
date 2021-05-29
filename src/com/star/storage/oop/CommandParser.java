@@ -1,73 +1,45 @@
 package com.star.storage.oop;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
-public class CommandParser{
-	private final ArrayList<Command> list = new ArrayList<>();
-	private final Runnable defaultCommand = () ->
-			System.out.println("Type help for help");
+public class CommandParser {
+    private final Autocomplete<Consumer<String[]>> list = new Autocomplete<>();
+    private final Runnable defaultCommand = ()->helpCommand(new String[]{});
 
-	public CommandParser(){
-		add("help", (a) -> outputCommands());
-	}
+    public CommandParser() {
+        add("help", this::helpCommand);
+    }
 
-	public List<Command> getCommands(){
-		return Collections.unmodifiableList(list);
-	}
+    private void helpCommand(String[] args){
+        System.out.println("Available commands:");
+        for (var c : list.list()) {
+            System.out.println(c.name());
+        }
+    }
 
-	public void outputCommands(){
-		System.out.println("Available commands:");
-		for(var c : list){
-			System.out.println(c.name());
-		}
-	}
+    public void add(String name, Consumer<String[]> c) {
+        list.add(name, c);
+    }
 
-	private List<Command> find(String name){
-		List<Command> list = new ArrayList<>();
-		for(Command a : this.list){
-			if(a.name().startsWith(name)){
-				list.add(a);
-			}
-		}
-		return list;
-	}
-
-	public void add(Command c){
-		list.add(c);
-	}
-
-	public void add(String name, Consumer<String> function){
-		list.add(new Command(name, function));
-	}
-
-	public void parse(String input){
-		if(input.isEmpty()){
-			defaultCommand.run();
-			return;
-		}
-		var match = Pattern.compile("^([-a-z0-9_]+)(?![^ ])").matcher(input);
-		if(!match.find()){
-			System.out.println("Invalid command name");
-			return;
-		}
-		String name = match.group();
-		List<Command> commands = find(name);
-		if(commands.isEmpty()){
-			System.out.println("Command not found");
-		}else if(commands.size() > 1){
-			System.out.println("Command ambiguous, matches:");
-			for(var c : commands){
-				System.out.println(c.name());
-			}
-		}else{
-			commands.get(0).command().accept(match.replaceAll("").stripLeading().stripTrailing());
-		}
-	}
-
-	public record Command(String name, Consumer<String> command){
-	}
+    public void parse(String input) {
+        input = input.strip();
+        if (input.isEmpty()) {
+            defaultCommand.run();
+            return;
+        }
+        var match = Pattern.compile("^([-a-z0-9_]+)(?![^ ])").matcher(input);
+        if (!match.find()) {
+            System.out.println("Command not found");
+            return;
+        }
+        var c = list.get(match.group(0));
+        if (c.size() == 0) {
+            System.out.println("Command not found");
+        } else if (c.size() > 1) {
+            System.out.println("Command ambiguous:");
+            for (var v : c)
+                System.out.println(v.name());
+        } else c.get(0).data().accept(input.substring(match.end(0)).strip().split(" +"));
+    }
 }
