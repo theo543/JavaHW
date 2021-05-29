@@ -29,7 +29,7 @@ public class TestCommand {
         });
     }
 
-    public void parseTests(String[] s) {
+    public static void parseTests(String[] s) {
         if (s.length == 0) {
             tests.list().forEach((a) -> a.data().run());
             return;
