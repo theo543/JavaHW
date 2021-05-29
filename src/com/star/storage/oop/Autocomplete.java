@@ -24,6 +24,14 @@ public class Autocomplete<Data> {
         return r;
     }
 
+    public Pair<Data> getOne(String s) {
+        for (var v : l) {
+            if (v.name.startsWith(s))
+                return v;
+        }
+        return null;
+    }
+
     public record Pair<Data>(String name, Data data) {
 
     }
