@@ -20,9 +20,13 @@ public class Main {
         String input;
         Scanner s = new Scanner(System.in);
         System.out.println("Enter a command:");
-        while (!exitLoop) {
+        while (true) {
             input = s.nextLine();
             cli.parse(input);
+            if (exitLoop) {
+                System.exit(0);
+                break;
+            }
         }
     }
 }
