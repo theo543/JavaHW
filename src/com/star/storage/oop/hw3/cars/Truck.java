@@ -3,28 +3,28 @@ package com.star.storage.oop.hw3.cars;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class Truck extends Car{
+public class Truck extends Car {
 
-	private double percentLoaded;
+    private double percentLoaded;
 
-	public Truck(double angle, double x, double y, double percentLoaded){
-		super(angle, x, y);
-		setPercentLoaded(percentLoaded);
-	}
+    public Truck(double angle, double x, double y, double percentLoaded) {
+        super(angle, x, y);
+        setPercentLoaded(percentLoaded);
+    }
 
-	public double getPercentLoaded(){
-		return percentLoaded;
-	}
+    public double getPercentLoaded() {
+        return percentLoaded;
+    }
 
-	public void setPercentLoaded(double percentLoaded){
-		this.percentLoaded = min(1, max(percentLoaded, 0));
-	}
+    public void setPercentLoaded(double percentLoaded) {
+        this.percentLoaded = min(1, max(percentLoaded, 0));
+    }
 
-	public double getAcceleration(){
-		return super.getAcceleration() * (1 - 0.2 * percentLoaded);//loaded truck accelerates 20% slower
-	}
+    public double getAcceleration() {
+        return super.getAcceleration() * (1 - 0.2 * percentLoaded);//loaded truck accelerates 20% slower
+    }
 
-	public double getDeceleration(){
-		return super.getAcceleration() * (1 + 0.2 * percentLoaded);//loaded truck stops 20% faster
-	}
+    public double getDeceleration() {
+        return super.getAcceleration() * (1 + 0.2 * percentLoaded);//loaded truck stops 20% faster
+    }
 }

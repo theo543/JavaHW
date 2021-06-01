@@ -22,6 +22,9 @@ public final class TestCommand {
         addTest("rectangle", Rectangle::testRectangle);
     }
 
+    private TestCommand() {
+    }
+
     public static void addTest(String name, Runnable r) {
         tests.add(name, () -> {
             r.run();
@@ -42,6 +45,4 @@ public final class TestCommand {
         }
         t.forEach(Runnable::run);
     }
-
-    private TestCommand(){}
 }

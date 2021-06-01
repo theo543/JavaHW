@@ -34,11 +34,11 @@ public class BurgerCommand {
         addSafely("add-extras", this::addExtras);
     }
 
-    private void addSafely(String name, Consumer<String[]> command){
-        parser.add(name, (args)->{
-            if(burger == null){
+    private void addSafely(String name, Consumer<String[]> command) {
+        parser.add(name, (args) -> {
+            if (burger == null) {
                 System.out.println("Burger not created yet");
-            }else command.accept(args);
+            } else command.accept(args);
         });
     }
 

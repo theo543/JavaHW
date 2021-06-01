@@ -5,13 +5,13 @@ import java.util.regex.Pattern;
 
 public class CommandParser {
     private final Autocomplete<Consumer<String[]>> list = new Autocomplete<>();
-    private final Runnable defaultCommand = ()->helpCommand(new String[]{});
+    private final Runnable defaultCommand = () -> helpCommand(new String[]{});
 
     public CommandParser() {
         add("help", this::helpCommand);
     }
 
-    private void helpCommand(String[] args){
+    private void helpCommand(String[] args) {
         System.out.println("Available commands:");
         for (var c : list.list()) {
             System.out.println(c.name());
