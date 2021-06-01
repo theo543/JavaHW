@@ -42,8 +42,11 @@ public class CommandParser {
                 System.out.println(v.name());
         } else {
             try {
-                c.get(0).data().accept(input.substring(match.end(0)).strip().split(" +"));
-            }catch(Exception e){
+                var args = input.substring(match.end(0)).strip().split(" +");
+                if (args.length == 1 && args[0].equals(""))
+                    args = new String[]{};
+                c.get(0).data().accept(args);
+            } catch (Exception e) {
                 System.out.println("\u001B[31m" + e.getClass().toString() + "\u001B[0m");//color codes
                 ///TODO Print command format
             }
