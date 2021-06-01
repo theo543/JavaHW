@@ -43,14 +43,13 @@ public class Car extends Vehicle {
     public double steer(double targetAngle, boolean right) {
         if (speed == 0)
             return angle;
-        targetAngle %= 360;
-        if (targetAngle < 0)
-            targetAngle += 360;
-        double tick = 0.00001;//100000 simulations per second
+        targetAngle = (targetAngle + 360) % 360;
+        double tick = 0.01;
         double angleChange = getSteering() * tick * (right ? 1 : -1);
-        while (abs(targetAngle - angle) > angleChange) {
+        while (abs(targetAngle - angle) > abs(angleChange * 1.5)) {
             move(tick, speed, angle);
             angle += angleChange;
+            angle = (angle + 360) % 360;
         }
         angle = targetAngle;
         return angle;
