@@ -10,7 +10,8 @@ public class Car extends Vehicle {
         this.angle = angle;
         this.x = x;
         this.y = y;
-        positions.add(new Point(x, y));
+        xStart = x;
+        yStart = y;
     }
 
     public double getAcceleration() {
@@ -47,10 +48,11 @@ public class Car extends Vehicle {
         double tick = 0.01;
         double angleChange = getSteering() * tick * (right ? 1 : -1);
         while (abs(targetAngle - angle) > abs(angleChange * 1.5)) {
-            move(tick, speed, angle);
+            move(tick, speed, angle, false);
             angle += angleChange;
             angle = (angle + 360) % 360;
         }
+        positions.add(new Movement(x, y, angleChange, right));
         angle = targetAngle;
         return angle;
     }

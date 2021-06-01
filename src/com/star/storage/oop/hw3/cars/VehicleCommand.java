@@ -21,6 +21,16 @@ public class VehicleCommand {
         addSafely("set-loaded", this::setLoaded);
         addSafely("steer-left", this::steerLeft);
         addSafely("steer-right", this::steerRight);
+        addSafely("print-movements", this::printMovements);
+    }
+
+    private void printMovements(String[] args) {
+        for (var move : vehicle.getMovements()) {
+            System.out.print("To " + move.x + "," + move.y);
+            if (move.isArc)
+                System.out.println(", angle " + move.angle + "°, " + (move.right ? "right" : "left"));
+            else System.out.println();
+        }
     }
 
     private void steerLeft(String[] args) {
@@ -37,7 +47,7 @@ public class VehicleCommand {
         System.out.println("angle = " + vehicle.getAngle() + "°");
         System.out.println("speed = " + vehicle.getSpeed() + " mps");
         if (vehicle instanceof Truck)
-            System.out.println("truck load = " + ((Truck) vehicle).getPercentLoaded()*100.0 + "%");
+            System.out.println("truck load = " + ((Truck) vehicle).getPercentLoaded() * 100.0 + "%");
     }
 
     private void setLoaded(String[] args) {
