@@ -1,5 +1,7 @@
 package com.star.storage.oop.hw3.cars;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +16,28 @@ public abstract class Vehicle {
 
     public double getSpeed() {
         return speed;
+    }
+
+    public BufferedImage pathToImage() {
+        double minX = -100, maxX = 100, minY = -100, maxY = 100;
+        for (var m : positions) {
+            minX = min(minX, m.x);
+            maxX = max(maxX, m.x);
+            minY = min(minY, m.y);
+            maxY = max(maxY, m.y);
+        }
+        BufferedImage image = new BufferedImage(max((int) (maxX - minX), 300), max((int) (maxY - minY), 300), BufferedImage.TYPE_INT_ARGB);
+        double x = this.x, y = this.y;
+        var g = (Graphics2D) image.getGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g.setColor(Color.BLUE);
+        for (var m : positions) {
+            g.drawLine((int) (x - minX), (int) (y - minY), (int) (m.x - minX), (int) (m.y * minY));
+            x = m.x;
+            y = m.y;
+        }
+        return image;
     }
 
     public double getAngle() {

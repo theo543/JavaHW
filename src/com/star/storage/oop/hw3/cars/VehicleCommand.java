@@ -2,6 +2,7 @@ package com.star.storage.oop.hw3.cars;
 
 import com.star.storage.oop.CommandParser;
 
+import javax.swing.*;
 import java.util.function.Consumer;
 
 import static java.lang.Math.max;
@@ -22,6 +23,16 @@ public class VehicleCommand {
         addSafely("steer-left", this::steerLeft);
         addSafely("steer-right", this::steerRight);
         addSafely("print-movements", this::printMovements);
+        addSafely("display", this::display);
+    }
+
+    private void display(String[] args) {
+        JFrame f = new JFrame();
+        f.add(new JLabel(new ImageIcon(vehicle.pathToImage())));
+        f.pack();
+        f.setResizable(false);
+        f.setAlwaysOnTop(true);
+        f.setVisible(true);
     }
 
     private void printMovements(String[] args) {
