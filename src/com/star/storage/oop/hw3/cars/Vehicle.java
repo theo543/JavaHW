@@ -1,7 +1,5 @@
 package com.star.storage.oop.hw3.cars;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,35 +7,28 @@ import java.util.List;
 import static java.lang.Math.*;
 
 public abstract class Vehicle {
-    protected final ArrayList<Movement> positions = new ArrayList<>();
+    private final ArrayList<Movement> movements = new ArrayList<>();
     protected double speed;//mps
     protected double angle;//degrees
     protected double x, y, xStart, yStart;//meters
 
-    public double getSpeed() {
-        return speed;
+    public double getXStart() {
+        return xStart;
     }
 
-    public BufferedImage pathToImage() {
-        double minX = -100, maxX = 100, minY = -100, maxY = 100;
-        for (var m : positions) {
-            minX = min(minX, m.x);
-            maxX = max(maxX, m.x);
-            minY = min(minY, m.y);
-            maxY = max(maxY, m.y);
+    public double getYStart() {
+        return yStart;
+    }
+
+    protected void addMovement(Movement m) {
+        synchronized (this) {
+            movements.add(m);
+            notifyAll();
         }
-        BufferedImage image = new BufferedImage(max((int) (maxX - minX), 300), max((int) (maxY - minY), 300), BufferedImage.TYPE_INT_ARGB);
-        double x = this.x, y = this.y;
-        var g = (Graphics2D) image.getGraphics();
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setColor(Color.BLUE);
-        for (var m : positions) {
-            g.drawLine((int) (x - minX), (int) (y - minY), (int) (m.x - minX), (int) (m.y * minY));
-            x = m.x;
-            y = m.y;
-        }
-        return image;
+    }
+
+    public double getSpeed() {
+        return speed;
     }
 
     public double getAngle() {
@@ -60,7 +51,7 @@ public abstract class Vehicle {
         x += speed * seconds * cos(r_angle);
         y += speed * seconds * sin(r_angle);
         if (recordMove)
-            positions.add(new Movement(x, y));
+            addMovement(new Movement(x, y));
     }
 
     protected void move(double seconds, double speed, double angle) {
@@ -68,10 +59,10 @@ public abstract class Vehicle {
     }
 
     public List<Movement> getMovements() {
-        return Collections.unmodifiableList(positions);
+        return Collections.unmodifiableList(movements);
     }
 
-    static class Movement {
+    class Movement {
         double x;
         double y;
         boolean isArc = false;

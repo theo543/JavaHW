@@ -40,21 +40,15 @@ public class Car extends Vehicle {
         return speed;
     }
 
-    //returns current angle
-    public double steer(double targetAngle, boolean right) {
-        if (speed == 0)
-            return angle;
-        targetAngle = (targetAngle + 360) % 360;
+    public void steer(double change, boolean right) {
         double tick = 0.01;
-        double angleChange = getSteering() * tick * (right ? 1 : -1);
-        while (abs(targetAngle - angle) > abs(angleChange * 1.5)) {
+        double changePerTick = getSteering() * tick;
+        while (change > 0) {
             move(tick, speed, angle, false);
-            angle += angleChange;
-            angle = (angle + 360) % 360;
+            angle = (angle + 360 + changePerTick * (right ? 1 : -1)) % 360;
+            change -= changePerTick;
         }
-        positions.add(new Movement(x, y, angleChange, right));
-        angle = targetAngle;
-        return angle;
+        addMovement(new Movement(x, y, change, right));
     }
 
     public double getMaxSpeed() {

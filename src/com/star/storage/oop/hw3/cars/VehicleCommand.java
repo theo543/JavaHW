@@ -27,12 +27,18 @@ public class VehicleCommand {
     }
 
     private void display(String[] args) {
+        int l;
+        if (args.length == 0)
+            l = 300;
+        else l = Integer.parseInt(args[0]);
         JFrame f = new JFrame();
-        f.add(new JLabel(new ImageIcon(vehicle.pathToImage())));
-        f.pack();
+        f.add(new PathPanel(vehicle));
         f.setResizable(false);
         f.setAlwaysOnTop(true);
+        f.setLocationRelativeTo(null);
         f.setVisible(true);
+        l = max(l, max(f.getBounds().width, f.getBounds().height));
+        f.setSize(l, l);
     }
 
     private void printMovements(String[] args) {
