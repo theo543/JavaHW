@@ -40,6 +40,13 @@ public class CommandParser {
             System.out.println("Command ambiguous:");
             for (var v : c)
                 System.out.println(v.name());
-        } else c.get(0).data().accept(input.substring(match.end(0)).strip().split(" +"));
+        } else {
+            try {
+                c.get(0).data().accept(input.substring(match.end(0)).strip().split(" +"));
+            }catch(Exception e){
+                System.out.println("\u001B[31m" + e.getClass().toString() + "\u001B[0m");//color codes
+                ///TODO Print command format
+            }
+        }
     }
 }
