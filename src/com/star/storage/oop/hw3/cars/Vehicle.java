@@ -1,8 +1,11 @@
 package com.star.storage.oop.hw3.cars;
 
+import java.util.ArrayList;
+
 import static java.lang.Math.*;
 
 public abstract class Vehicle {
+    protected final ArrayList<Point> positions = new ArrayList<>();
     protected double speed;//mps
     protected double angle;//degrees
     protected double x, y;//meters
@@ -30,5 +33,9 @@ public abstract class Vehicle {
         double r_angle = toRadians(angle);
         x += speed * seconds * cos(r_angle);
         y += speed * seconds * sin(r_angle);
+        positions.add(new Point(x, y));
+    }
+
+    protected record Point(double x, double y) {
     }
 }

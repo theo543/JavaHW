@@ -10,6 +10,7 @@ public class Car extends Vehicle {
         this.angle = angle;
         this.x = x;
         this.y = y;
+        positions.add(new Point(x, y));
     }
 
     public double getAcceleration() {
