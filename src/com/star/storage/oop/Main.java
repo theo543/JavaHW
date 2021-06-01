@@ -11,15 +11,19 @@ public class Main {
     public static void main(String[] args) {
         CommandParser cli = new CommandParser();
         BurgerCommand burgerCli = new BurgerCommand();
-        cli.add("exit", (a) -> exitLoop = true);
         cli.add("test", TestCommand::parseTests);
         cli.add("burger", burgerCli::parse);
+        cli.add("exit", (a) -> exitLoop = true);
         String input;
         Scanner s = new Scanner(System.in);
         System.out.println("Enter a command:");
-        while (!exitLoop) {
+        while (true) {
             input = s.nextLine();
             cli.parse(input);
+            if (exitLoop) {
+                System.exit(0);
+                break;
+            }
         }
     }
 }

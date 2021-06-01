@@ -6,9 +6,16 @@ import java.util.regex.Pattern;
 public class CommandParser {
     private final Autocomplete<Consumer<String[]>> list = new Autocomplete<>();
     private final Runnable defaultCommand = () -> helpCommand(new String[]{});
+    private static boolean allowExceptions = false;
 
     public CommandParser() {
         add("help", this::helpCommand);
+        add("toggle-exceptions", this::toggleExceptions);
+    }
+
+    private void toggleExceptions(String[] args) {
+        allowExceptions = !allowExceptions;
+        System.out.println(allowExceptions ? "Exceptions allowed" : "Exceptions blocked");
     }
 
     private void helpCommand(String[] args) {
@@ -47,6 +54,8 @@ public class CommandParser {
                     args = new String[]{};
                 c.get(0).data().accept(args);
             } catch (Exception e) {
+                if(allowExceptions)
+                    throw(e);
                 System.out.println("\u001B[31m" + e.getClass().toString() + "\u001B[0m");//color codes
                 ///TODO Print command format
             }
