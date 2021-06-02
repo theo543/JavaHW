@@ -41,7 +41,7 @@ public class Car extends Vehicle {
     }
 
     public void steer(double change, boolean right) {
-        double tick = 0.01;
+        double tick = 0.00001;
         double changePerTick = getSteering() * tick;
         while (change > 0) {
             move(tick, speed, angle, false);

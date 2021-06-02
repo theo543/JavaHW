@@ -2,8 +2,8 @@ package com.star.storage.oop.hw3.cars;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.util.Random;
 
 import static java.lang.Math.*;
 
@@ -41,19 +41,27 @@ public class PathPanel extends JPanel {
         var movements = v.getMovements();
         double l = 100;
         for (var m : v.getMovements()) {
-            l = (int) max(max(abs(m.x), abs(m.y)), l);
+            l = max(max(abs(m.x), abs(m.y)), l);
         }
-        int x = (int) v.getXStart(), y = (int) v.getYStart();
+        double x = v.getXStart(), y = v.getYStart();
+        g.setStroke(new BasicStroke((float) (l / 50), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g.scale(getSize().width / (2 * l), getSize().height / (2 * l));
         g.translate(l, l);
-        g.setColor(Color.RED);
+        g.setColor(Color.DARK_GRAY);
         g.draw(new Line2D.Double(0, -l, 0, l));
         g.draw(new Line2D.Double(l, 0, -l, 0));
-        g.setColor(Color.BLUE);
+        Random r = new Random(v.hashCode());
         for (var m : movements) {
-            g.draw(new Line2D.Double(x, y, (int) m.x, (int) m.y));///todo implement arcs
-            x = (int) m.x;
-            y = (int) m.y;
+            r.setSeed((long) (m.x + m.y + m.angle + m.arcAngle + 10 + (m.isArc ? 1 : 0) + (m.right ? 1 : 0)));
+            g.setColor(new Color(abs(r.nextInt() % 255), abs(r.nextInt() % 255), abs(r.nextInt() % 255)));
+            g.draw(new Line2D.Double(x, y, m.x, m.y));///todo implement arcs
+            x = m.x;
+            y = m.y;
+            var tmp = g.getTransform();
+            g.rotate(toRadians(m.angle), x, y);
+            g.draw(new Line2D.Double(x - l / 50, y + l / 50, x, y));
+            g.draw(new Line2D.Double(x, y, x - l / 50, y - l / 50));
+            g.setTransform(tmp);
         }
         g.setTransform(prev);
     }

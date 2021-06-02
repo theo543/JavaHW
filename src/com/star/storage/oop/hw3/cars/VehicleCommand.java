@@ -29,16 +29,16 @@ public class VehicleCommand {
     private void display(String[] args) {
         int l;
         if (args.length == 0)
-            l = 300;
+            l = 500;
         else l = Integer.parseInt(args[0]);
         JFrame f = new JFrame();
         f.add(new PathPanel(vehicle));
         f.setResizable(false);
         f.setAlwaysOnTop(true);
-        f.setLocationRelativeTo(null);
         f.setVisible(true);
         l = max(l, max(f.getBounds().width, f.getBounds().height));
         f.setSize(l, l);
+        f.setLocationRelativeTo(null);
     }
 
     private void printMovements(String[] args) {

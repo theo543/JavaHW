@@ -67,18 +67,21 @@ public abstract class Vehicle {
         double y;
         boolean isArc = false;
         double angle;
+        double arcAngle;
         boolean right;
 
         public Movement(double x, double y) {
             this.x = x;
             this.y = y;
+            this.angle = getAngle();
         }
 
         public Movement(double x, double y, double angle, boolean right) {
             this.x = x;
             this.y = y;
             isArc = true;
-            this.angle = angle;
+            this.angle = getAngle();
+            this.arcAngle = angle;
             this.right = right;
         }
     }
