@@ -5,8 +5,7 @@ import com.star.storage.oop.CommandParser;
 import javax.swing.*;
 import java.util.function.Consumer;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import static java.lang.Math.*;
 
 public class VehicleCommand {
     //TODO:add path display commands
@@ -45,23 +44,23 @@ public class VehicleCommand {
         for (var move : vehicle.getMovements()) {
             System.out.print("To " + move.x + "," + move.y);
             if (move.isArc)
-                System.out.println(", angle " + move.angle + "°, " + (move.right ? "right" : "left"));
+                System.out.println(", angle " + toDegrees(move.angle) + "°, " + (move.right ? "right" : "left"));
             else System.out.println();
         }
     }
 
     private void steerLeft(String[] args) {
-        vehicle.steer(Double.parseDouble(args[0]), false);
+        vehicle.steer(toRadians(Double.parseDouble(args[0])), false);
     }
 
     private void steerRight(String[] args) {
-        vehicle.steer(Double.parseDouble(args[0]), true);
+        vehicle.steer(toRadians(Double.parseDouble(args[0])), true);
     }
 
     private void status(String[] args) {
         System.out.println("x = " + vehicle.getX() + "m");
         System.out.println("y = " + vehicle.getY() + "m");
-        System.out.println("angle = " + vehicle.getAngle() + "°");
+        System.out.println("angle = " + toDegrees(vehicle.getAngle()) + "°");
         System.out.println("speed = " + vehicle.getSpeed() + " mps");
         if (vehicle instanceof Truck)
             System.out.println("truck load = " + ((Truck) vehicle).getPercentLoaded() * 100.0 + "%");
