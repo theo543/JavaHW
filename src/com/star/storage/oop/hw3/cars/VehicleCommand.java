@@ -8,7 +8,6 @@ import java.util.function.Consumer;
 import static java.lang.Math.*;
 
 public class VehicleCommand {
-    //TODO:add path display commands
     private final CommandParser parser = new CommandParser();
     private Car vehicle;
 
@@ -23,6 +22,14 @@ public class VehicleCommand {
         addSafely("steer-right", this::steerRight);
         addSafely("print-movements", this::printMovements);
         addSafely("display", this::display);
+        parser.add("arc-test", (args) -> {
+            parser.parse("new-car");
+            parser.parse("set-speed 10");
+            parser.parse("display");
+            parser.parse("steer-right 90");
+            parser.parse("set-speed 20");
+            parser.parse("steer-left 210");
+        });
     }
 
     private void display(String[] args) {
