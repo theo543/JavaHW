@@ -1,4 +1,4 @@
-package com.star.storage.oop.hw2.burgers;
+package com.star.storage.oop.hw2_burgers;
 
 public class HealthyBurger extends Burger {
 

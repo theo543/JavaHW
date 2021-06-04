@@ -1,4 +1,4 @@
-package com.star.storage.oop.hw3.cars;
+package com.star.storage.oop.hw3_cars;
 
 import com.star.storage.oop.CommandParser;
 

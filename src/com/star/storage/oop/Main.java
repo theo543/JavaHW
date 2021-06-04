@@ -1,7 +1,7 @@
 package com.star.storage.oop;
 
-import com.star.storage.oop.hw2.burgers.BurgerCommand;
-import com.star.storage.oop.hw3.cars.CarCommand;
+import com.star.storage.oop.hw2_burgers.BurgerCommand;
+import com.star.storage.oop.hw3_cars.CarCommand;
 
 import java.util.Scanner;
 

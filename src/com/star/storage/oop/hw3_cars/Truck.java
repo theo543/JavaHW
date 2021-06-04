@@ -1,4 +1,4 @@
-package com.star.storage.oop.hw3.cars;
+package com.star.storage.oop.hw3_cars;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;

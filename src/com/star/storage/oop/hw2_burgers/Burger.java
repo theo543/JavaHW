@@ -1,4 +1,4 @@
-package com.star.storage.oop.hw2.burgers;
+package com.star.storage.oop.hw2_burgers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.star.storage.oop.hw3.shapes;
+package com.star.storage.oop.hw3_shapes;
 
 import static com.star.storage.oop.AssertProvider.Assert;
 import static java.lang.Math.max;

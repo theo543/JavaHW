@@ -1,4 +1,4 @@
-package com.star.storage.oop.hw.string;
+package com.star.storage.oop.hw6_string;
 
 import java.util.*;
 import java.util.regex.MatchResult;

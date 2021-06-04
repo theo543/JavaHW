@@ -1,4 +1,4 @@
-package com.star.storage.oop.hw4;
+package com.star.storage.oop.hw4_video;
 
 import java.util.Random;
 

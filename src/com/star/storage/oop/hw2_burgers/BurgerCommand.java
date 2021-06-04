@@ -1,4 +1,4 @@
-package com.star.storage.oop.hw2.burgers;
+package com.star.storage.oop.hw2_burgers;
 
 import com.star.storage.oop.Autocomplete;
 import com.star.storage.oop.CommandParser;

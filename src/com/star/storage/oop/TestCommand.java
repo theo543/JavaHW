@@ -4,8 +4,8 @@ import com.star.storage.oop.hw1.ComplexNumber;
 import com.star.storage.oop.hw1.Person;
 import com.star.storage.oop.hw1.Point;
 import com.star.storage.oop.hw1.Wall;
-import com.star.storage.oop.hw3.shapes.Cuboid;
-import com.star.storage.oop.hw3.shapes.Rectangle;
+import com.star.storage.oop.hw3_shapes.Cuboid;
+import com.star.storage.oop.hw3_shapes.Rectangle;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.star.storage.oop.hw3.cars;
+package com.star.storage.oop.hw3_cars;
 
 public abstract class Vehicle {
     protected double speed;//mps
