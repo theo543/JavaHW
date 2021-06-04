@@ -57,11 +57,11 @@ public class VehicleCommand {
     }
 
     private void steerLeft(String[] args) {
-        vehicle.steer(toRadians(Double.parseDouble(args[0])), false);
+        vehicle.steer(toRadians(max(0, Double.parseDouble(args[0]))), false);
     }
 
     private void steerRight(String[] args) {
-        vehicle.steer(toRadians(Double.parseDouble(args[0])), true);
+        vehicle.steer(toRadians(max(0, Double.parseDouble(args[0]))), true);
     }
 
     private void status(String[] args) {
