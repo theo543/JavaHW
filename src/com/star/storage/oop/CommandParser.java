@@ -35,7 +35,7 @@ public class CommandParser {
             defaultCommand.run();
             return;
         }
-        var match = Pattern.compile("^([-a-z0-9_]+)(?![^ ])").matcher(input);
+        var match = Pattern.compile("^([-a-zA-Z0-9_]+)(?![^ ])").matcher(input);
         if (!match.find()) {
             System.out.println("Command not found");
             return;
