@@ -21,15 +21,10 @@ public class Car extends Vehicle {
         yStart = y;
     }
 
-    protected void move(double seconds, double speed, double angle, boolean recordMove) {
+    protected void move(double seconds, double speed, double angle) {
         x += speed * seconds * cos(angle);
         y += speed * seconds * sin(angle);
-        if (recordMove)
-            addMovement(new Movement(x, y, this.angle));
-    }
-
-    protected void move(double seconds, double speed, double angle) {
-        move(seconds, speed, angle, true);
+        addMovement(new Movement(x, y, this.angle));
     }
 
     public List<Movement> getMovements() {
@@ -76,12 +71,15 @@ public class Car extends Vehicle {
     }
 
     public void steer(double change, boolean right) {
-        double tick = 0.00001, changePerTick = getSteering() * tick;
-        for (double x = change; x > 0; x -= changePerTick) {
-            move(tick, speed, angle, false);
-            angle = (angle + 2 * PI + changePerTick * (right ? 1 : -1)) % (2 * PI);
-        }
-        addMovement(new Movement(x, y, angle, change, right));
+        double dir = right ? 1 : -1;
+        var r = speed / getSteering();
+        double arcAngle = change % (2 * PI);
+        double dist = 2 * r * sin(arcAngle / 2);
+        var a = (angle + arcAngle / 2 * dir + 2 * PI) % (2 * PI);
+        x += dist * cos(a);
+        y += dist * sin(a);
+        angle += (arcAngle * dir + 2 * PI) % (2 * PI);
+        addMovement(new Movement(x, y, angle, change, r, right));
     }
 
     public double getMaxSpeed() {
@@ -91,10 +89,15 @@ public class Car extends Vehicle {
     static class Movement {
         double x;
         double y;
-        boolean isArc = false;
         double angle;
-        double arcAngle;
-        boolean right;
+        SteeringData sData = null;
+
+        public Movement(double x, double y, double angle, double angleChange, double radius, boolean right) {
+            this.x = x;
+            this.y = y;
+            this.angle = angle;
+            sData = new SteeringData(angleChange, radius, right);
+        }
 
         public Movement(double x, double y, double angle) {
             this.x = x;
@@ -102,13 +105,7 @@ public class Car extends Vehicle {
             this.angle = angle;
         }
 
-        public Movement(double x, double y, double angle, double arcAngle, boolean right) {
-            this.x = x;
-            this.y = y;
-            isArc = true;
-            this.angle = angle;
-            this.arcAngle = arcAngle;
-            this.right = right;
+        record SteeringData(double angleChange, double radius, boolean right) {
         }
     }
 }

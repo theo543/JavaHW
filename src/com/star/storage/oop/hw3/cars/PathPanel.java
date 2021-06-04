@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -58,37 +57,20 @@ public class PathPanel extends JPanel {
             var m = movements.get(i);
             g.setColor(new Color(abs(random.nextInt() % 255), abs(random.nextInt() % 255), abs(random.nextInt() % 255)));
             if (shapes.size() <= i) {
-                if (!m.isArc) {
+                if (m.sData == null) {
                     shapes.add(new Line2D.Double(x, y, m.x, m.y));
                 } else {
-                    Point2D.Double to = new Point2D.Double(m.x, m.y);
-                    Point2D.Double middle = new Point2D.Double((x + to.x) / 2, (y + to.y) / 2);
-                    Point2D.Double c;
                     Arc2D arc = new Arc2D.Double();
-                    double chord = to.distance(x, y), chordAngle, height, radius, hA, arcStart, arcExtent;
-                    double arcAngle = m.arcAngle % (2 * PI);
-                    if (arcAngle < PI) {
-                        chordAngle = arcAngle;
-                        radius = chord * sin((PI - chordAngle) / 2) / sin(chordAngle);
-                        height = sqrt(pow(radius, 2) - pow(middle.distance(to), 2));
-                        hA = atan2(middle.y - y, middle.x - x) + PI / 2;
-                        c = new Point2D.Double(middle.x + cos(hA) * height * (m.right ? 1 : -1), middle.y + sin(hA) * height * (m.right ? 1 : -1));
-                    } else if (arcAngle > PI) {
-                        chordAngle = arcAngle - PI;
-                        radius = chord * sin((2 * PI - chordAngle) / 2) / sin(chordAngle);
-                        height = sqrt(pow(radius, 2) - pow(middle.distance(to), 2));
-                        hA = atan2(middle.y - y, middle.x - x) - PI / 2;
-                        c = new Point2D.Double(middle.x + cos(hA) * height * (m.right ? 1 : -1), middle.y + sin(hA) * height * (m.right ? 1 : -1));
+                    double dir = m.sData.right() ? 1 : -1;
+                    double arcAngle = m.sData.angleChange() % (2 * PI);
+                    double aToC = m.angle + (PI / 2 - arcAngle) * dir;
+                    double radius = m.sData.radius();
+                    double cX = x + cos(aToC) * radius;
+                    double cY = y + sin(aToC) * radius;
+                    if (m.sData.angleChange() >= 2 * PI) {
+                        shapes.add(new Ellipse2D.Double(cX - radius, cY - radius, 2 * radius, 2 * radius));
                     } else {
-                        c = middle;
-                        radius = chord / 2;
-                    }
-                    if (m.arcAngle >= 2 * PI) {
-                        shapes.add(new Ellipse2D.Double(c.x - radius, c.y - radius, 2 * radius, 2 * radius));
-                    } else {
-                        arcStart = toDegrees(atan2(c.y - y, x - c.x));
-                        arcExtent = toDegrees(arcAngle) * (m.right ? -1 : 1);
-                        arc.setArcByCenter(c.x, c.y, radius, arcStart, arcExtent, Arc2D.OPEN); //for some reason these angles are anticlockwise?
+                        arc.setArcByCenter(cX, cY, radius, toDegrees(atan2(cY - y, x - cX)), toDegrees(arcAngle) * -dir, Arc2D.OPEN); //for some reason these angles are anticlockwise?
                         shapes.add(arc);
                     }
                 }

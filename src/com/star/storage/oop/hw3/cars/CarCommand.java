@@ -7,21 +7,21 @@ import java.util.function.Consumer;
 
 import static java.lang.Math.*;
 
-public class VehicleCommand {
+public class CarCommand {
     private final CommandParser parser = new CommandParser();
-    private Car vehicle;
+    private Car car;
 
-    public VehicleCommand() {
+    public CarCommand() {
         parser.add("new-car", this::newCar);
         parser.add("new-truck", this::newTruck);
         addSafely("status", this::status);
         addSafely("set-speed", this::setSpeed);
         addSafely("move", this::move);
         addSafely("set-loaded", this::setLoaded);
-        addSafely("steer-left", this::steerLeft);
-        addSafely("steer-right", this::steerRight);
+        addSafely("steer-left", (a) -> steer(a, false));
+        addSafely("steer-right", (a) -> steer(a, true));
         addSafely("print-movements", this::printMovements);
-        addSafely("display", this::display);
+        addSafely("display-path", this::display);
         parser.add("arc-test", (args) -> {
             parser.parse("new-car");
             parser.parse("set-speed 10");
@@ -38,9 +38,10 @@ public class VehicleCommand {
             l = 500;
         else l = Integer.parseInt(args[0]);
         JFrame f = new JFrame();
-        f.add(new PathPanel(vehicle));
+        f.add(new PathPanel(car));
         f.setResizable(false);
         f.setAlwaysOnTop(true);
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         f.setVisible(true);
         l = max(l, max(f.getBounds().width, f.getBounds().height));
         f.setSize(l, l);
@@ -48,62 +49,58 @@ public class VehicleCommand {
     }
 
     private void printMovements(String[] args) {
-        for (var move : vehicle.getMovements()) {
+        for (var move : car.getMovements()) {
             System.out.print("To " + move.x + "," + move.y);
-            if (move.isArc)
-                System.out.println(", angle " + toDegrees(move.angle) + "°, " + (move.right ? "right" : "left"));
+            if (move.sData != null)
+                System.out.println(", angle " + toDegrees(move.angle) + "°, " + (move.sData.right() ? "right" : "left"));
             else System.out.println();
         }
     }
 
-    private void steerLeft(String[] args) {
-        vehicle.steer(toRadians(max(0, Double.parseDouble(args[0]))), false);
-    }
-
-    private void steerRight(String[] args) {
-        vehicle.steer(toRadians(max(0, Double.parseDouble(args[0]))), true);
+    private void steer(String[] args, boolean dir) {
+        car.steer(toRadians(max(0, Double.parseDouble(args[0]))), dir);
     }
 
     private void status(String[] args) {
-        System.out.println("x = " + vehicle.getX() + "m");
-        System.out.println("y = " + vehicle.getY() + "m");
-        System.out.println("angle = " + toDegrees(vehicle.getAngle()) + "°");
-        System.out.println("speed = " + vehicle.getSpeed() + " mps");
-        if (vehicle instanceof Truck)
-            System.out.println("truck load = " + ((Truck) vehicle).getPercentLoaded() * 100.0 + "%");
+        System.out.println("x = " + car.getX() + "m");
+        System.out.println("y = " + car.getY() + "m");
+        System.out.println("angle = " + toDegrees(car.getAngle()) + "°");
+        System.out.println("speed = " + car.getSpeed() + " mps");
+        if (car instanceof Truck)
+            System.out.println("truck load = " + ((Truck) car).getPercentLoaded() * 100.0 + "%");
     }
 
     private void setLoaded(String[] args) {
-        if (!(vehicle instanceof Truck)) {
+        if (!(car instanceof Truck)) {
             System.out.println("Vehicle is not a truck");
         } else {
-            ((Truck) vehicle).setPercentLoaded(Double.parseDouble(args[0]));
+            ((Truck) car).setPercentLoaded(Double.parseDouble(args[0]));
         }
     }
 
     private void setSpeed(String[] args) {
-        vehicle.changeSpeed(Double.parseDouble(args[0]));
+        car.changeSpeed(Double.parseDouble(args[0]));
     }
 
     private void move(String[] args) {
-        vehicle.move(Double.parseDouble(args[0]));
+        car.move(Double.parseDouble(args[0]));
     }
 
     private void newCar(String[] args) {
         if (args.length == 0) {
-            vehicle = new Car(0, 0, 0);
+            car = new Car(0, 0, 0);
             return;
         }
         double a, x, y;
         a = Double.parseDouble(args[0]);
         x = Double.parseDouble(args[1]);
         y = Double.parseDouble(args[2]);
-        vehicle = new Car(a, x, y);
+        car = new Car(a, x, y);
     }
 
     private void newTruck(String[] args) {
         if (args.length == 0) {
-            vehicle = new Truck(0, 0, 0, 0);
+            car = new Truck(0, 0, 0, 0);
             return;
         }
         double a, x, y, l;
@@ -111,12 +108,12 @@ public class VehicleCommand {
         x = Double.parseDouble(args[1]);
         y = Double.parseDouble(args[2]);
         l = min(1, max(0, Double.parseDouble(args[3])));
-        vehicle = new Truck(a, x, y, l);
+        car = new Truck(a, x, y, l);
     }
 
     public void addSafely(String name, Consumer<String[]> command) {
         parser.add(name, (args) -> {
-            if (vehicle == null)
+            if (car == null)
                 System.out.println("Vehicle not created yet");
             else command.accept(args);
         });
