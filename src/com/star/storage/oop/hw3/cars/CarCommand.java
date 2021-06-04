@@ -2,7 +2,12 @@ package com.star.storage.oop.hw3.cars;
 
 import com.star.storage.oop.CommandParser;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.function.Consumer;
 
 import static java.lang.Math.*;
@@ -22,6 +27,7 @@ public class CarCommand {
         addSafely("steer-right", (a) -> steer(a, true));
         addSafely("print-movements", this::printMovements);
         addSafely("display-path", this::display);
+        addSafely("save-path", this::savePath);
         parser.add("arc-test", (args) -> {
             parser.parse("new-car");
             parser.parse("set-speed 10");
@@ -46,6 +52,50 @@ public class CarCommand {
         l = max(l, max(f.getBounds().width, f.getBounds().height));
         f.setSize(l, l);
         f.setLocationRelativeTo(null);
+        f.toFront();
+    }
+
+    private void savePath(String[] args) {
+        int w, h;
+        if (args.length == 0)
+            w = h = 500;
+        else {
+            w = Integer.parseInt(args[0]);
+            h = Integer.parseInt(args[1]);
+        }
+        var p = new PathPanel(car);
+        p.setSize(w, h);
+        BufferedImage i = new BufferedImage(p.getWidth(), p.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        p.paint(i.getGraphics());
+        JFileChooser f = new JFileChooser();
+        f.setDialogType(JFileChooser.SAVE_DIALOG);
+        f.setFileFilter(new FileFilter() {
+            public boolean accept(File f) {
+                return f.isDirectory() || f.getName().toLowerCase().endsWith(".png");
+            }
+
+            public String getDescription() {
+                return "PNG";
+            }
+        });
+        JFrame fr = new JFrame();
+        f.addActionListener((a) -> {
+            if (a.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
+                try {
+                    ImageIO.write(i, "png", f.getSelectedFile());
+                    fr.dispose();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (a.getActionCommand().equals(JFileChooser.CANCEL_SELECTION))
+                fr.dispose();
+        });
+        fr.add(f);
+        fr.setAlwaysOnTop(true);
+        fr.toFront();
+        fr.pack();
+        fr.setLocationRelativeTo(null);
+        fr.setVisible(true);
     }
 
     private void printMovements(String[] args) {
