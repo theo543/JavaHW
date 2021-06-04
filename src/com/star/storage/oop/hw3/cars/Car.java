@@ -78,7 +78,7 @@ public class Car extends Vehicle {
         var a = (angle + arcAngle / 2 * dir + 2 * PI) % (2 * PI);
         x += dist * cos(a);
         y += dist * sin(a);
-        angle += (arcAngle * dir + 2 * PI) % (2 * PI);
+        angle = (angle + arcAngle * dir + 2 * PI) % (2 * PI);
         addMovement(new Movement(x, y, angle, change, r, right));
     }
 
