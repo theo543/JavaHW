@@ -1,0 +1,7 @@
+2. d) compilation error
+NullPointerException is a subclass of Exception
+3. a) arithmetic exception
+10 / 0 is calculated before a[10] is accessed so the first exception prevents the second
+4. c) throws is followed by an exception class
+5. b) defines a Checked Exception class
+since it's not an Error or a RuntimeException it's checked
