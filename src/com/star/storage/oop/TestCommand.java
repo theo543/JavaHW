@@ -6,6 +6,7 @@ import com.star.storage.oop.hw1.Point;
 import com.star.storage.oop.hw1.Wall;
 import com.star.storage.oop.hw3_shapes.Cuboid;
 import com.star.storage.oop.hw3_shapes.Rectangle;
+import com.star.storage.oop.hw5_pos.POSTests;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,7 @@ public final class TestCommand {
         addTest("wall", Wall::testWall);
         addTest("cuboid", Cuboid::testCuboid);
         addTest("rectangle", Rectangle::testRectangle);
+        addTest("pos", POSTests::runTests);
     }
 
     private TestCommand() {
