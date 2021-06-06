@@ -76,13 +76,14 @@ public class PathPanel extends JPanel {
                 }
             }
             g.draw(shapes.get(i));
+            double arrow_size = sqrt(pow(x - m.x, 2) + pow(y - m.y, 2)) / 11;
             x = m.x;
             y = m.y;
             var prev = g.getTransform();
             //draw arrow
             g.rotate(m.angle, x, y);
-            g.draw(new Line2D.Double(x - squareLen / 50, y + squareLen / 50, x, y));
-            g.draw(new Line2D.Double(x, y, x - squareLen / 50, y - squareLen / 50));
+            g.draw(new Line2D.Double(x - arrow_size, y + arrow_size, x, y));
+            g.draw(new Line2D.Double(x, y, x - arrow_size, y - arrow_size));
             g.setTransform(prev);
         }
         g.setTransform(prevTransform);
